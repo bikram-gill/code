@@ -1,7 +1,7 @@
 # code
 A collection of useful code snippets.
 
-# code\games
+## code\games
 A collection of useful code snippets for solving games and puzzles.
 
 ## code\solutions
