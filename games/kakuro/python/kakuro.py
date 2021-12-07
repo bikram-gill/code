@@ -5,7 +5,6 @@ It is like a crossword puzzle for simple addition, using just 9 letters (1-9)
 '''
 from itertools import combinations
 from itertools import permutations
-from textwrap import TextWrapper
 
 '''
 kakuroNumberList function generates possible combinations of numbers which can add up to a specific number. 
@@ -30,6 +29,9 @@ def kakuroNumberList():
 '''
 simplePrintKakuroNumberList prints kakuroNumberList number return value, a dict, in simple name value format.
 function input parameter is a dict variable, with a number mapped to a list of tuples, with each tuple having number combination adding up to the respective key.
+
+input: dict d - the dictionary to print
+
 '''
 def simplePrintKakuroNumberList(d):
     print('::simplePrintkakuroNumberList:Start::')
@@ -45,31 +47,58 @@ List of all the number words that can be used to solve kakuro - basically a perm
 E.g. 12, 21, 13, 31, etc
 '''
 def kakuroWordList():
-    d = kakuroNumberList()
+    num_dict = kakuroNumberList()
     
-    dp = dict()
+    word_dict = dict()
     
-    for k in d.keys():
-        dp[k] = []
-        for tup in d[k]:
-            dp[k].append( list(permutations(tup)) )
-            #to do: join tuple to final word
-        #print(dp[k]) 
-
-    return dp
+    for k in num_dict.keys():
+        word_dict[k] = []
+        
+        #transform the collection of list integers into corresponding string
+        for tup in num_dict[k]:
+            word_dict[k] = [''.join(map(str,tup2)) for tup2 in list(permutations(tup))]
+        
+    return word_dict
 
 
 '''
 simplePrintKakuroWordList prints kakuroNumberList number return value, a dict, in simple name value format.
 function input parameter is a dict variable, with a number mapped to a list of tuples, with each tuple having number combination adding up to the respective key.
+
+input: dict d - the dictionary to print
 '''
 def simplePrintKakuroWordList(d):
     print('::simplePrintKakuroWordList:Start::')
     for k in d.keys():
+        #print key and word values
+        #TODO fix "str: Too large to show contents. Max items to show: 300" error for key 28 and above
         print(k, end=": ")
-        print(d[k]) 
-        print() 
+        for value in d[k]:
+            print(value, end=" ")  
+        print()  
     print('::simplePrintKakuroWordList:End::')
+
+'''
+simplePrintStatKakuro - prints simple statistics about kakuro numbers
+'''
+def simplePrintStatKakuro():
+    print('::simplePrintStatKakuro:Start::')
+    
+    numbers = kakuroNumberList()
+    print('Number of possible combinations: ', len(numbers.keys())) #43
+    print('Minimum and maximum combination (sum): ', numbers.keys())
+
+    words = kakuroWordList()
+    total_words = 0
+    for key in words.keys():
+        total_words = total_words + len(words[key])
+    
+    print('Maximum number words possible: ', total_words) #771990
+
+
+    print('::simplePrintStatKakuro:End::')
+
+
 
 '''
 Simple main test function
@@ -77,4 +106,7 @@ Simple main test function
 if __name__ == '__main__':
     #simplePrintKakuroNumberList(kakuroNumberList()) #uncomment for simple 
     #tablePrintKakuroNumberList(kakuroNumberList())
-    simplePrintKakuroWordList(kakuroWordList())
+    #simplePrintKakuroWordList(kakuroWordList())
+    simplePrintStatKakuro()
+    
+
