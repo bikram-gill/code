@@ -85,19 +85,14 @@ def simplePrintStatKakuro():
     print('::simplePrintStatKakuro:Start::')
     
     numbers = kakuroNumberList()
-    total_numbers = 0
-    for key in numbers.keys():
-        total_numbers = total_numbers + len(numbers[key])
+    total_numbers = sum([len(tup_list) for tup_list in numbers.values()])
         
     print('Number of possible sums: ', len(numbers.keys())) #43
     print('Minimum and maximum sum, with range: ', numbers.keys())
     print('Maximum number of letter combinations possible: ', total_numbers) #502
 
     words = kakuroWordList()
-    total_words = 0
-    for key in words.keys():
-        total_words = total_words + len(words[key])
-    
+    total_words = sum([len(tup_list2) for tup_list2 in words.values()])
     print('Maximum number words possible (permutations): ', total_words) #771990
 
 
