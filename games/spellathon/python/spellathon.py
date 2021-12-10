@@ -17,7 +17,6 @@ TO DO: exception and error handling
 '''
 
 import os
-from ctypes.wintypes import CHAR
 
 '''
 parseWordListAndSaveLongWords - following function parses word list file, and generates a new file containing words of length 4 or more. Spellathon only needs words with length more than 3 (4 or more).
@@ -55,8 +54,9 @@ This function implements a simple logic, and other version will try to implement
 Assumptions:
 -First alphabet in the string is the central letter, which needs to occur in each word.
 -This function assumes that a file exists, ./../data/long_words.txt, which contains only words with length >= 4.
--This version assumes all words are unique, and future.
--Lewand list of alphabets from most common to least common in appearance is used: etaoinshrdlcumwfgypbvkjxqz
+-Code assumes a temp folder exists in path './../data/temp', and it is used for storing temporary files
+-This version assumes all chars are unique, and future version will handle duplicate chars.
+-Lewand list of alphabets for most common to least common alphabets in appearance is used, to shortlist the word list faster: etaoinshrdlcumwfgypbvkjxqz
 ( https://en.wikipedia.org/wiki/Letter_frequency#Relative_frequencies_of_letters_in_the_English_language )
 '''
 def findWordsWithAlphabetsSimpleSearch(alphabetList):
@@ -138,6 +138,6 @@ def sortSearchLettersAsPerFrequency(alphabetList):
 
 if __name__ == '__main__':
     parseWordListAndSaveLongWords('./../data/words.txt')
-    findWordsWithAlphabetsSimpleSearch('aetouzv')
+    findWordsWithAlphabetsSimpleSearch('petouzv')
     print('end')
     
