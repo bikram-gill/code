@@ -1,13 +1,17 @@
 '''
 Code for generating number lists for solving Kakuro puzzle.
-Kakuro involves filling out numbers 1-9 in each row/column, without repetitions, to add up to required number in the 2D grid.
-It is like a crossword puzzle for simple addition, using just 9 letters (1-9)
+Kakuro involves filling out numbers 1-9 in each row/column, without 
+repetitions, to add up to required number in the 2D grid.
+It is like a crossword puzzle for simple addition, using just 9 
+letters (1-9)
 '''
 from itertools import combinations
 from itertools import permutations
 
 '''
-kakuroNumberList function generates possible combinations of numbers which can add up to a specific number. 
+kakuroNumberList function generates possible combinations of numbers
+ which can add up to a specific number. 
+ 
 Maximum number to which 1-9 numbers can add up to is 45.
 '''
 def kakuroNumberList():
@@ -27,8 +31,12 @@ def kakuroNumberList():
     return d
 
 '''
-simplePrintKakuroNumberList prints kakuroNumberList number return value, a dict, in simple name value format.
-function input parameter is a dict variable, with a number mapped to a list of tuples, with each tuple having number combination adding up to the respective key.
+simplePrintKakuroNumberList prints kakuroNumberList number return value,
+ a dict, in simple name value format.
+ 
+function input parameter is a dict variable, with a number mapped to a 
+list of tuples, with each tuple having number combination adding up to 
+the respective key.
 
 input: dict d - the dictionary to print
 
@@ -43,7 +51,8 @@ def simplePrintKakuroNumberList(d):
 
 
 '''
-List of all the number words that can be used to solve kakuro - basically a permutation of all possible combinations.
+List of all the number words that can be used to solve kakuro - basically
+ a permutation of all possible combinations.
 E.g. 12, 21, 13, 31, etc
 '''
 def kakuroWordList():
@@ -62,8 +71,11 @@ def kakuroWordList():
 
 
 '''
-simplePrintKakuroWordList prints kakuroNumberList number return value, a dict, in simple name value format.
-function input parameter is a dict variable, with a number mapped to a list of tuples, with each tuple having number combination adding up to the respective key.
+simplePrintKakuroWordList prints kakuroNumberList number return value, 
+a dict, in simple name value format.
+
+function input parameter is a dict variable, with a number mapped to a 
+list of tuples, with each tuple having number combination adding up to the respective key.
 
 input: dict d - the dictionary to print
 '''
@@ -71,7 +83,8 @@ def simplePrintKakuroWordList(d):
     print('::simplePrintKakuroWordList:Start::')
     for k in d.keys():
         #print key and word values
-        #TODO fix "str: Too large to show contents. Max items to show: 300" error for key 28 and above
+        #TODO fix "str: Too large to show contents. Max items to show: 
+        #300" error for key 28 and above
         print(k, end=": ")
         for value in d[k]:
             print(value, end=" ")  
