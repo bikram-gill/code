@@ -1,0 +1,54 @@
+D:\python>python
+Python 3.8.5 (tags/v3.8.5:580fbb0, Jul 20 2020, 15:43:08) [MSC v.1926 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> n = 42
+
+>>> n
+42
+
+>>> 40 = n
+  File "<stdin>", line 1
+SyntaxError: cannot assign to literal
+
+>>> x = y = 1
+
+>>> x
+1
+
+>>> y
+1
+
+>>> x + y
+2
+
+>>> x + y ;
+2
+
+>>> ; x + y + 3 ;;
+  File "<stdin>", line 1
+    ; x + y + 3 ;;
+    ^
+SyntaxError: invalid syntax
+
+>>> x + y + 3 ;;
+  File "<stdin>", line 1
+    x + y + 3 ;;
+               ^
+SyntaxError: invalid syntax
+
+>>> x + y + 3 ;
+5
+
+>>> x + y + 3 .
+  File "<stdin>", line 1
+    x + y + 3 .
+              ^
+SyntaxError: invalid syntax
+
+>>> xy
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'xy' is not defined
+
+>>>#eof

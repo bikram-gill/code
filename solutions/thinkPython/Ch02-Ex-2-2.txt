@@ -1,0 +1,56 @@
+D:\python>python
+Python 3.8.5 (tags/v3.8.5:580fbb0, Jul 20 2020, 15:43:08) [MSC v.1926 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import math
+
+>>> math.pi
+3.141592653589793
+
+>>> r = 5
+
+>>> r ** 3
+125
+
+>>> 4 / 3 * math.pi * r ** 3 #1 volume of sphere
+523.5987755982989
+
+>>> ( 4 / 3 ) * math.pi * ( r ** 3 )
+523.5987755982989
+
+>>> #2 cost of 60 books
+
+>>> books_cost_after_discount = 24.95 * 0.60 * 60
+
+>>> total_shipping_cost = 3 + (0.75 * 59)
+
+>>> wholesale_cost = books_cost_after_discount + total_shipping_cost
+
+>>> wholesale_cost
+945.4499999999999
+
+>>> #3 running time
+
+>>> time_easy_pace_min = 2 * 8
+
+>>> time_easy_pace_sec = 2 * 15
+
+>>> time_tempo_min = 3 * 7
+
+>>> time_tempo_sec = 3 * 12
+
+>>> total_sec = time_tempo_sec + time_easy_pace_sec
+
+>>> total_sec
+66
+
+>>> total_min = time_tempo_min + time_easy_pace_min
+
+>>> total_min
+37
+
+>>> #total_time 38 min and 6 seconds
+
+>>> #adding 38 min to 6:52 = 7:30:06 am
+
+>>>#eof
