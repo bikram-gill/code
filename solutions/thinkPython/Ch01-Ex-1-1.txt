@@ -1,0 +1,122 @@
+D:\python>python
+Python 3.8.5 (tags/v3.8.5:580fbb0, Jul 20 2020, 15:43:08) [MSC v.1926 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> #1 Instead of Hello World, I generally start programming using personal version, 'Praise God'. Will explain the reason later.
+
+>>> print('Praise God')
+Praise God
+
+>>> print('Hello'
+...
+... )
+Hello
+
+>>> print(23
+... )
+23
+
+>>> print 'Hello'
+  File "<stdin>", line 1
+    print 'Hello'
+          ^
+SyntaxError: Missing parentheses in call to 'print'. Did you mean print('Hello')?
+
+>>> #2
+
+>>> print ('Hello
+  File "<stdin>", line 1
+    print ('Hello
+                ^
+SyntaxError: EOL while scanning string literal
+
+>>> print(Hello')
+  File "<stdin>", line 1
+    print(Hello')
+                ^
+SyntaxError: EOL while scanning string literal
+
+>>> #3
+
+>>> 2++2
+4
+
+>>> 2+++2
+4
+
+>>> -2++2
+0
+
+>>> +2++2
+4
+
+>>> 2+++++2
+4
+
+>>> ++++++++2++++++++2
+4
+
+>>> +2-+-2+2---2+++2
+6
+
+>>> #4
+
+>>> 1
+1
+
+>>> 002
+  File "<stdin>", line 1
+    002
+      ^
+SyntaxError: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers
+
+>>> 002o
+  File "<stdin>", line 1
+    002o
+      ^
+SyntaxError: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers
+
+>>> 0o
+  File "<stdin>", line 1
+    0o
+     ^
+SyntaxError: invalid octal literal
+
+>>> 0o0002
+2
+
+>>> 0o0015
+13
+
+>>> 5 + 0o0015
+18
+
+>>> 0o345
+229
+
+>>> '''
+...
+... #5
+... '''
+'\n\n#5\n'
+
+>>> 2 3
+  File "<stdin>", line 1
+    2 3
+      ^
+SyntaxError: invalid syntax
+
+>>> n = 3
+
+>>> m = 4
+
+>>> n m
+  File "<stdin>", line 1
+    n m
+      ^
+SyntaxError: invalid syntax
+
+>>> 3
+3
+
+>>>#eof
