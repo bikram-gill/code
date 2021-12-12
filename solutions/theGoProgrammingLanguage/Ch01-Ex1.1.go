@@ -18,7 +18,7 @@ func main() {
 	
 	//echo2
 	s2, sep2 := "", ""
-	for _,arg := range os.Args[0:] {
+	for _,arg := range os.Args {
 		s2 += sep2 + arg
 		sep2 = " "
 	}
@@ -27,4 +27,3 @@ func main() {
 	//echo3
     fmt.Println(strings.Join(os.Args, " "))	
 }
-
