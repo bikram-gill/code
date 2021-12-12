@@ -22,6 +22,7 @@ func main() {
 	loop, err := strconv.Atoi(os.Args[1])
 	if err != nil {
 		fmt.Println(err)
+		fmt.Println("first argument should be a number, which tells how many times the test loop should run.")
 		os.Exit(2)
 	}
 
