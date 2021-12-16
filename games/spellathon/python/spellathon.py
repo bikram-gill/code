@@ -20,9 +20,24 @@ Code in this file helps in generating and solving Spellathon puzzles.
 TO DO: 
 -exception and error handling
 -use global constants for magic values
+-split allthon and spellathon code cleanly
 '''
 
 import os
+import sys
+
+'''
+CONSTANTS
+'''
+DATA_FILE_PATH = './games/spellathon/data'     #All data files are stored in this folder
+TEMP_DATA_FILE_PATH = DATA_FILE_PATH + '/temp' #All temp files are here
+DATA_FILE_WORDS = 'words.txt'           #First input file with word list
+DATA_FILE_LONGWORDS = 'long_words.txt'  #Derived from input file, words.txt
+FOLDER_SEPARATOR = '/'                  #Folder path separator used in Windows - use system var
+TEMP_FILE_PREFIX = 'temp_file'          #Common prefix used for generating temp files
+
+ALLTHON_WORD_LENGTH_MIN = 7             #Minimum length of words used in allthon
+LEWAND_ALPHABETS = 'etaoinshrdlcumwfgypbvkjxqz' #average frequency of word usage
 
 '''
 ------------------------------------------------------------------------
@@ -41,9 +56,14 @@ parseWordListAndSaveLongWords - following function parses word list file,
 './../data/long_words.txt'
 '''
 def parseWordListAndSaveLongWords(file_name_with_path):
-    words = open(file_name_with_path, 'r')
+    try:
+        words = open(file_name_with_path, 'r')
+    except FileNotFoundError:
+        print('File not found. A list of words, with a word in each line, should exist: ' + file_name_with_path)
+        return
     
-    long_words = open('./../data/long_words.txt', 'w')
+    
+    long_words = open(DATA_FILE_PATH + FOLDER_SEPARATOR + 'long_words.txt', 'w')
         
     readLines = 0
     writtenLines = 0
@@ -55,7 +75,7 @@ def parseWordListAndSaveLongWords(file_name_with_path):
             break
         readLines += 1
         final_line = line.strip()
-        if len(final_line) > 6:
+        if len(final_line) >= ALLTHON_WORD_LENGTH_MIN:
             long_words.writelines( final_line + '\n')
             writtenLines += 1
     
@@ -91,26 +111,31 @@ etaoinshrdlcumwfgypbvkjxqz
 '''
 def findWordsWithAllAlphabetsSimpleSearch(alphabetList):
     
-    #Create file with all words longer than length 4
-    parseWordListAndSaveLongWords('./../data/words.txt')
+    #Create file with all words longer than length 7
+    parseWordListAndSaveLongWords(DATA_FILE_PATH + FOLDER_SEPARATOR + 'words.txt')
     
     #initialize temp file names
-    temp_file_names = ['temp_file'+str(x) for x in range(7)] 
+    temp_file_names = [TEMP_FILE_PREFIX +str(x) for x in range(7)] 
     
-    parseWordListAndSaveWords('./../data/long_words.txt', 
+    #TODO: Following code is really for spellathon, and needs to move there. Allthon searches for all words
+    parseWordListAndSaveWords(DATA_FILE_PATH + FOLDER_SEPARATOR + 'long_words.txt', 
                               temp_file_names[0], alphabetList[0])
     
+    #sort the list of alphabets based on occurrence to filter words faster
+    #filtering least used words first
     sorted_alphabets = sortSearchLettersAsPerFrequency(alphabetList[1:])
     
     previous_temp_file = temp_file_names[0]
     
     for char_to_search, temp_file in zip(sorted_alphabets, temp_file_names[1:]):
-        parseWordListAndSaveWords('./../data/temp/' 
-                                  + previous_temp_file, temp_file, char_to_search)
+        parseWordListAndSaveWords(DATA_FILE_PATH + FOLDER_SEPARATOR + 'temp' 
+                                    + FOLDER_SEPARATOR 
+                                    + previous_temp_file, temp_file, char_to_search)
         previous_temp_file = temp_file
     
-    #Read final file
-    final_word_file = open('./../data/temp/' + temp_file_names[-1], 'r')
+    #Read final file, extract the shortlisted words and print them
+    final_word_file = open(DATA_FILE_PATH + FOLDER_SEPARATOR + 'temp' 
+                                    + FOLDER_SEPARATOR + temp_file_names[-1], 'r')
     
     final_words = []
     final_word_count = 0
@@ -143,7 +168,7 @@ def parseWordListAndSaveWords(file_name_with_path, temp_file_name,
                               char_to_search):
     words = open(file_name_with_path, 'r')
     
-    char_words = open('./../data/temp/' + temp_file_name, 'w')
+    char_words = open(DATA_FILE_PATH + FOLDER_SEPARATOR + 'temp' + FOLDER_SEPARATOR + temp_file_name, 'w')
         
     readLines = 0
     writtenLines = 0
@@ -172,8 +197,7 @@ Sorts list in reverse order, based on occurrence in Lewand's alphabets
 This helps in short-listing the words faster
 '''
 def sortSearchLettersAsPerFrequency(alphabetList):
-    lewandAlphabets = 'etaoinshrdlcumwfgypbvkjxqz'
-    returnList = sorted(list(alphabetList), key = lambda x: lewandAlphabets.index(x))
+    returnList = sorted(list(alphabetList), key = lambda x: LEWAND_ALPHABETS.index(x))
     return returnList[::-1]
 
 '''
@@ -193,6 +217,11 @@ letters (only 1 combination of all 7 letters exists).
 #TO DO
 
 if __name__ == '__main__':
-    findWordsWithAllAlphabetsSimpleSearch('petouzv')
+    #print(os.getcwd())
+    #'''
+    try:
+        findWordsWithAllAlphabetsSimpleSearch('petouzv')
+    except:
+        print(sys.exc_info()[0])
     print('end')
-    
+    #'''
