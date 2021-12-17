@@ -36,7 +36,6 @@ DATA_FILE_LONGWORDS = 'long_words.txt'  #Derived from input file, words.txt
 FOLDER_SEPARATOR = '/'                  #Folder path separator used in Windows - use system var
 TEMP_FILE_PREFIX = 'temp_file'          #Common prefix used for generating temp files
 
-ALLTHON_WORD_LENGTH_MIN = 7             #Minimum length of words used in allthon
 SPELLATHON_WORD_LENGTH_MIN = 4          #Minimum length of words used in spellathon
 SPELLATHON_WORD_LENGTH_MAX = 7          #Maximum length of words used in spellathon
 LEWAND_ALPHABETS = 'etaoinshrdlcumwfgypbvkjxqz' #average frequency of word usage
@@ -140,8 +139,10 @@ parseWordListOfGivenLength - following function parses word list file,
 file_name_with_path - input file to parse for words, one word in each line
 min_length_to_filter, max_length_to_filter - words of length between min and max are filtered
 into a new file
+leading_alphabet - alphabet which should exist in each word
 '''
-def parseWordListOfGivenLength(file_name_with_path, min_length_to_filter, max_length_to_filter):
+def parseWordListOfGivenLength( file_name_with_path, min_length_to_filter, 
+                                max_length_to_filter, leading_alphabet):
     try:
         words = open(file_name_with_path, 'r')
     except FileNotFoundError:
@@ -162,7 +163,7 @@ def parseWordListOfGivenLength(file_name_with_path, min_length_to_filter, max_le
             break
         readLines += 1
         final_line = line.strip()
-        if len(final_line) >= min_length_to_filter and len(final_line) <= max_length_to_filter:
+        if len(final_line) >= min_length_to_filter and len(final_line) <= max_length_to_filter and leading_alphabet in final_line:
             long_words.writelines( final_line + '\n')
             writtenLines += 1
     
@@ -176,23 +177,20 @@ def parseWordListOfGivenLength(file_name_with_path, min_length_to_filter, max_le
 ------------------------------------------------------------------------
 Variation of Spellathon: Allthon
 
-This section contains code for finding words that contain all 7 letters.
-Other letters can also occur in the words. 
+This section contains code for finding words that contain all the given input
+letters. Other letters can also occur in the words. 
 ------------------------------------------------------------------------
 '''
 
 '''
-findWordsWithAllAlphabetsSimpleSearch takes a string with 7 letters with 
-which words need to be created.
+findWordsWithAllAlphabetsSimpleSearch takes a string with 7/etc letters with 
+which words need to be created (other letters can exist).
 
 This function implements a simple logic, and other version will try to
  implement an optimized solution and/or use regex.
  
 NOTE: This function does not exactly solve spellathon, but finds words 
-which use all 7 letters. In Spellathon, only the given 7 letters have 
-to be used. To be moved to different file.
-
-TODO: Modify code to process alphabet list other than 7
+which use all input letters.
 
 Assumptions:
 -First alphabet in the string is the central letter, which needs to 
@@ -210,11 +208,13 @@ etaoinshrdlcumwfgypbvkjxqz
 '''
 def findWordsWithAllAlphabetsSimpleSearch(alphabetList):
     
-    #Create file with all words longer than length 7 (ALLTHON_WORD_LENGTH_MIN)
-    parseWordListAndSaveLongWords(DATA_FILE_PATH + FOLDER_SEPARATOR + DATA_FILE_WORDS,ALLTHON_WORD_LENGTH_MIN)
+    alphabet_length = len(alphabetList)
+
+    #Create file with all words longer than length alphabetlist length
+    parseWordListAndSaveLongWords(DATA_FILE_PATH + FOLDER_SEPARATOR + DATA_FILE_WORDS, alphabet_length)
     
-    #initialize temp file names
-    temp_file_names = [TEMP_FILE_PREFIX +str(x) for x in range(7)] 
+    #initialize temp file names, for each alphabet 1 file is created
+    temp_file_names = [TEMP_FILE_PREFIX +str(x) for x in range(alphabet_length)] 
     
     #TODO: Following code is really for spellathon, and needs to move there. Allthon searches for all words
     #parseWordListAndSaveWords(DATA_FILE_PATH + FOLDER_SEPARATOR + DATA_FILE_LONGWORDS, 
@@ -303,27 +303,33 @@ def findWordsForSpellathonSimpleSearch(alphabetList):
     2. Find all combinations of letters which are of length 4 to 7
     3. Find words which are made up of only letters in any of the above combinations
     '''
-    #Create file with all words between length 4-7
-    parseWordListOfGivenLength(DATA_FILE_PATH + FOLDER_SEPARATOR + DATA_FILE_WORDS, SPELLATHON_WORD_LENGTH_MIN, SPELLATHON_WORD_LENGTH_MAX)
+    #Create file with all words between length 4-7, and leading alphabet (alphabet which should exist in each word)
+    parseWordListOfGivenLength( DATA_FILE_PATH + FOLDER_SEPARATOR + DATA_FILE_WORDS, 
+                                SPELLATHON_WORD_LENGTH_MIN, 
+                                SPELLATHON_WORD_LENGTH_MAX,
+                                alphabetList[0])
 
     #TODO
 
-    pass
-
-
 
 if __name__ == '__main__':
-    #print(os.getcwd())
-    '''
+    print('Working directory: ' + os.getcwd())
+
+    function = input('Function to execute (1 for allthon, 2 for spellathon): ')
+    alphabets = input('Input related alphabet list (any number of alphabets for 1, 7 alphabets for 2): ')
+
     try:
-        findWordsWithAllAlphabetsSimpleSearch('petiuzv')
+        if function == '1':
+            findWordsWithAllAlphabetsSimpleSearch(alphabets)
+        elif function == '2':
+            if len(alphabets) == 7:
+                findWordsForSpellathonSimpleSearch(alphabets)
+            else:
+                print('Alphabet list should be 7 characters long')
+        else:
+            print('wrong function selection: ' + function)
     except:
         print(sys.exc_info()[0])
     print('end')
-    '''
-    try:
-        findWordsForSpellathonSimpleSearch('petiuzv')
-    except:
-        print(sys.exc_info()[0])
-    print('end')
+        
     
