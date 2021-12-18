@@ -455,7 +455,7 @@ def findWordsForSpellathonSimpleSearch(alphabetList):
 if __name__ == '__main__':
     print('Working directory: ' + os.getcwd())
 
-    function = input('Function to execute (1 for allthon, 2 for allex, 3 for spellathon): ')
+    function = input('Select game -\n 1. Allthon (words containing given letters)\n 2. Allex (words containing ONLY given letters)\n 3. Spellathon\n: ')
 
     try:
         if function == '1':
