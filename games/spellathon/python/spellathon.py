@@ -217,8 +217,31 @@ def filterOutNonAlphabets(input_file_name, non_alphabets, output_file_name):
     input_words.close()
 
 
-    pass
+'''
+printWordsFromFile - prints all words on console from an input file. File should
+contain one word per line.
 
+input_file_name - name of the file, from which words need to be printed
+'''
+def printWordsFromFile(input_file_name):
+    
+    input_words = open(DATA_FILE_PATH + FOLDER_SEPARATOR + TEMP_FOLDER + FOLDER_SEPARATOR + input_file_name, 'r')
+
+    wordCount = 0
+
+    while True:
+        line = input_words.readline().strip()
+
+        if not line:
+            break
+        
+        wordCount += 1
+        
+        print(line, end=" ")
+    
+    print('\nTotal word count: ' + str(wordCount))
+
+    input_words.close()
 
 '''
 ------------------------------------------------------------------------
@@ -306,7 +329,68 @@ def findWordsWithAllAlphabetsSimpleSearch(alphabetList):
     
     return final_words
      
+
+'''
+------------------------------------------------------------------------
+Variation of Spellathon: Allex (ALL EXclusive)
+
+This section contains code for finding words that contain all the given input
+letters exclusively. Other letters CANNOT occur in the words. 
+------------------------------------------------------------------------
+'''
+
+'''
+findWordsWithAllAlphabetsExclusive - finds words which are made of alphabets
+containing only the input letters.
+
+alphabetList - alphabets which need to be used for finding words
+'''
+def findWordsWithAllAlphabetsExclusive(alphabetList):
+    '''
+    1. Find words of length equal to len(alphabets)
+    2. Find all words which do not contain any other letters
+    3. Find words which are made up of only letters in any of the above combinations 
+    (handle duplicates)
+    '''
+    try:
+        input_words = open(DATA_FILE_PATH + FOLDER_SEPARATOR + DATA_FILE_WORDS, 'r')
+    except FileNotFoundError:
+        print('File not found. A list of words, with a word in each line, should exist: ' + 
+                    DATA_FILE_PATH + FOLDER_SEPARATOR + DATA_FILE_WORDS)
+        return
     
+    #words not containing only the given input words
+    output_words = open(DATA_FILE_PATH + FOLDER_SEPARATOR + TEMP_FOLDER + FOLDER_SEPARATOR + 'exclusive_words.txt', 'w')
+
+    #Find all alphabets not in spellathon query, to be used in regex
+    nonAlphabets = re.sub(r'['+ alphabetList +']','', string.ascii_lowercase)
+
+    reg = r'[' + nonAlphabets + ']'
+
+    readLines = 0
+    writtenLines = 0
+    
+    #loop through the input file words, and populate output file
+    while True:
+        line = input_words.readline()
+        
+        if not line:
+            break
+        readLines += 1
+        final_line = line.strip()
+        if None == re.search(reg, final_line):
+            output_words.writelines( final_line + '\n')
+            writtenLines += 1
+    
+    print("Lines read: {}, Lines written: {}".format( readLines, writtenLines))
+    
+    output_words.close()
+
+    printWordsFromFile('exclusive_words.txt')
+    
+    input_words.close()   
+
+
 
 '''
 ------------------------------------------------------------------------
@@ -365,19 +449,31 @@ def findWordsForSpellathonSimpleSearch(alphabetList):
 
     #handle duplicate letters
 
-    #TODO
+    printWordsFromFile('non_alphabets.txt')
 
 
 if __name__ == '__main__':
     print('Working directory: ' + os.getcwd())
 
-    function = input('Function to execute (1 for allthon, 2 for spellathon): ')
-    alphabets = input('Input related alphabet list (any number of alphabets for 1, 7 alphabets for 2): ')
+    function = input('Function to execute (1 for allthon, 2 for allex, 3 for spellathon): ')
 
     try:
         if function == '1':
+            
+            alphabets = input('Input alphabet list (any number of alphabets, e.g. abcde): ')
+
             findWordsWithAllAlphabetsSimpleSearch(alphabets)
+        
         elif function == '2':
+            
+            alphabets = input('Input alphabet list (any number of alphabets, e.g. abcde): ')
+            
+            findWordsWithAllAlphabetsExclusive(alphabets)
+
+        elif function == '3':
+            
+            alphabets = input('Input alphabet list (7 alphabets, e.g. lmnopqr): ')
+
             if len(alphabets) == 7:
                 findWordsForSpellathonSimpleSearch(alphabets)
             else:
