@@ -349,8 +349,7 @@ def findWordsWithAllAlphabetsExclusive(alphabetList):
     '''
     1. Find words of length equal to len(alphabets)
     2. Find all words which do not contain any other letters
-    3. Find words which are made up of only letters in any of the above combinations 
-    (handle duplicates)
+    3. Handle duplicates
     '''
     try:
         input_words = open(DATA_FILE_PATH + FOLDER_SEPARATOR + DATA_FILE_WORDS, 'r')
@@ -367,6 +366,7 @@ def findWordsWithAllAlphabetsExclusive(alphabetList):
 
     reg = r'[' + nonAlphabets + ']'
 
+    alphabetListLength = len(alphabetList)
     readLines = 0
     writtenLines = 0
     
@@ -378,7 +378,7 @@ def findWordsWithAllAlphabetsExclusive(alphabetList):
             break
         readLines += 1
         final_line = line.strip()
-        if None == re.search(reg, final_line):
+        if alphabetListLength == len(final_line) and None == re.search(reg, final_line):
             output_words.writelines( final_line + '\n')
             writtenLines += 1
     
