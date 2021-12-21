@@ -1,4 +1,9 @@
-import os
+'''
+Find all multiples of m and n, which are less than Max. Compute sum of the multiples.
+
+TO DO: Find all multiples of a set of numbers (a, b, c, ...), less than Max, and 
+calculate their sum.
+'''
 
 def sumMultiples(max, n):
     multiple = (max - 1) // n
