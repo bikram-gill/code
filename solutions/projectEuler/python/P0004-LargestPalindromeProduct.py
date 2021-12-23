@@ -1,7 +1,8 @@
 '''
 Find largest palindromic number which is made up of product of n numbers, each made up of m digits.
 
-NOTE: currently only n=2 is supported. For m > 3 memory error can occur in 32 bit version.
+NOTE: currently only n=2 is supported. For m > 3 memory error can occur in 32 bit version. For m > 4
+memory error will occur in 64 bit version.
 '''
 
 from itertools import combinations_with_replacement, product
