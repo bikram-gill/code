@@ -12,4 +12,5 @@ Code for generating word lists for solving Spellathon puzzle.
 -F-------D--<br>
 -----E------<br>
 
-.
+<br><br>
+This folder also contains code for other word games and puzzles.
