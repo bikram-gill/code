@@ -1,7 +1,5 @@
 '''
 Find smallest number which is evenly divisible by all numbers from n, n+1, n+2... to m.
-
-NOTE: Testing for arbitrary min and max is pending. 
 '''
 
 from datetime import datetime
