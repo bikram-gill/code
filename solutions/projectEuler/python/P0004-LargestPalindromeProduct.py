@@ -6,7 +6,7 @@ m > 3 memory error can occur in 32 bit python. For m > 4 memory error will occur
 Version2 supports larger digit numbers (but could take few minutes to execute for m > 6).
 '''
 
-from itertools import combinations_with_replacement, product
+from itertools import combinations_with_replacement
 from datetime import datetime
 
 #Find lowest and highest number made up of m digits
