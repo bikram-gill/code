@@ -10,7 +10,7 @@ import itertools
 def summationOfPrimes(N):
     sum = 0
     
-    #initialize prime number array, number corresponding to index is a prime if value is True
+    #initialize prime number array, number corresponding to index is a prime if value is True (except first 2)
     primeArray = [True for i in range(N+1)] 
     number = 2
     while True:
