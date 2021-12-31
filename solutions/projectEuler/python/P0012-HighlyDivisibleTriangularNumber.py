@@ -42,7 +42,9 @@ def findPrimes(maxNumber):
     return primes
 
 
-
+'''
+Using standard formula for divisor calculation.
+'''
 def findDivisors(number, primes):
 
     divisors = 1
