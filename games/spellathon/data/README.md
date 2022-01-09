@@ -6,5 +6,7 @@ The code in spellathon directory works on txt files, with word lists containing 
 
 1. https://github.com/dwyl/english-words <br>
 2. https://github.com/first20hours/google-10000-english <br>
-3. http://www-personal.umich.edu/~jlawler/wordlist.html <br>
+3. http://www-personal.umich.edu/~jlawler/wordlist.html <br><br>
+
+Another option is to use python inbuild words package 'pip install english-words', but different functions work on txt file and inbuilt package.<br> 
 
