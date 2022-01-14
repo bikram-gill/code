@@ -21,6 +21,7 @@ def sumOfAmicableNumbers(N):
     return sum(amicableNumbers)
 
 #A faster version and can process N == 1M in less than 10 seconds
+#and can calculate upto N == 2.5M, but runs out of memory after 3M
 def sumOfAmicableNumbersFast(N):
 
     #random number found by testing, for N == 1M, times should be atleast 4
@@ -54,13 +55,42 @@ def sumOfAmicableNumbersFast(N):
 
     return sum(amicableNumbers)
 
+#An even faster version and can process N == 1M in less than 5 seconds
+#and can process N == 10M in about 60 seconds, and 25M in 3 min
+def sumOfAmicableNumbersFaster(N):
+
+    #random number found by testing, for N == 10M, times should be atleast 4
+    times = 4
+
+     #1 is a divisor for all integers
+     #Initialize an array to store sum of divisors of a number at respective indexes
+    sumOfDivisors = [ 1 for i in range(times*N+1)]
+
+    for number in range(2,times*N+1):
+        for multiple in range(number*2, N+1, number):
+            sumOfDivisors[multiple] += number
+
+    amicableNumbers = set()
+
+    for number in range(2,N+1):
+
+        sumOfDivisor = sumOfDivisors[number]
+        
+        if number == sumOfDivisors[sumOfDivisor] and sumOfDivisor != number:
+            amicableNumbers.add(number)
+            amicableNumbers.add(sumOfDivisor)
+
+    return sum(amicableNumbers)
+
+
 if __name__ == '__main__':
     N = int( input('Input upper bound for finding sum of amicable numbers (E.g. 10000): ') )
 
     start = datetime.now()
 
     #print('Answer: ', str( sumOfAmicableNumbers(N) ) )
-    print('Answer: ', str( sumOfAmicableNumbersFast(N) ) )
+    #print('Answer: ', str( sumOfAmicableNumbersFast(N) ) )
+    print('Answer: ', str( sumOfAmicableNumbersFaster(N) ) )
 
     end = datetime.now()
 
