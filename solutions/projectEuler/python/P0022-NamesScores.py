@@ -26,10 +26,12 @@ def namesScores(inputFile):
     
     s = 0
 
-    for name, rank in zip(names, range(1,len(names)+1)):
-        s += rank * sum(map(lambda x : string.ascii_uppercase.index(x) + 1, list(name)))
-       
-    return s
+    #for name, rank in zip(names, range(1,len(names)+1)):
+    #    s += rank * sum(map(lambda x : string.ascii_uppercase.index(x) + 1, list(name)))
+    
+    #replacing above loop
+
+    return (sum( [rank * sum(map(lambda x : string.ascii_uppercase.index(x) + 1, list(name))) for name, rank in zip(names, range(1,len(names)+1) ) ] ) )
     
 if __name__ == '__main__':
     
