@@ -3,10 +3,11 @@ Find the nth fibonacci number, which is pandigital 1-n at both ends
 '''
 
 from datetime import datetime
+import math
 import os
 
 #Brute force method, takes a couple of hours to execute
-def integerRightTriangles1(limit):
+def pandigitalFibonacciEnds1(limit):
 
     f1 = 1
     f2 = 1
@@ -42,8 +43,8 @@ def integerRightTriangles1(limit):
     return 0
 
 #For better performance
-def integerRightTriangles2(limit):
-    return
+def pandigitalFibonacciEnds2(limit):
+     return 0
 
 if __name__ == '__main__':
     
@@ -53,7 +54,8 @@ if __name__ == '__main__':
 
     start = datetime.now().strftime("%H:%M:%S")
 
-    print('Answer: ', str(integerRightTriangles1(limit) ) )
+    print('Answer: ', str(pandigitalFibonacciEnds1(limit) ) )
+    #print('Answer: ', str(pandigitalFibonacciEnds2(limit) ) )
 
     end = datetime.now().strftime("%H:%M:%S")
 
