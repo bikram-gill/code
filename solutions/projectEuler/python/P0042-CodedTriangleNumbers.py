@@ -7,7 +7,7 @@ from datetime import datetime
 import string
 import os
 
-def namesScores(inputFile):
+def codedTriangleNumbers(inputFile):
     
     file = open(inputFile, 'r')
     
@@ -39,7 +39,7 @@ if __name__ == '__main__':
     
     start = datetime.now().strftime("%H:%M:%S")
 
-    print('Answer: ', str(namesScores(os.curdir + '\code\solutions\projectEuler\python\P0042-words.txt') ) )
+    print('Answer: ', str(codedTriangleNumbers(os.curdir + '\code\solutions\projectEuler\python\P0042-words.txt') ) )
 
     end = datetime.now().strftime("%H:%M:%S")
 
