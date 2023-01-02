@@ -1,5 +1,5 @@
 '''
-Find last m digits of 1 ** 1 + 2 ** 2 + ... + n ** n
+Find 3 primes made up of same digits and equal difference between the 3.
 '''
 
 from datetime import datetime
